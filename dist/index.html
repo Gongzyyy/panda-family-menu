@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f2e8" />
+  <title>今天吃什么 · 我的菜单</title>
+  <style>
+    *{box-sizing:border-box} html{background:#eee} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;color:var(--ink);background:var(--bg);transition:.35s ease;min-height:100vh}
+    body[data-theme="warm"]{--bg:#f7f2e8;--card:#fffaf1;--ink:#28251f;--muted:#817b70;--accent:#e15d3b;--soft:#f0dfcf;--line:#e8ded0;--shadow:0 14px 34px rgba(72,46,26,.10);--radius:28px}
+    body[data-theme="fresh"]{--bg:#eef7f1;--card:#fbfffc;--ink:#16382c;--muted:#648075;--accent:#178d62;--soft:#d8eee3;--line:#d7e9df;--shadow:0 14px 34px rgba(18,85,59,.09);--radius:22px}
+    body[data-theme="dark"]{--bg:#101112;--card:#1b1d1f;--ink:#f5f4ef;--muted:#989c9f;--accent:#ffb649;--soft:#2d2922;--line:#303235;--shadow:0 18px 44px rgba(0,0,0,.32);--radius:20px}
+    body[data-theme="pop"]{--bg:#f3efff;--card:#ffffff;--ink:#25164b;--muted:#75649a;--accent:#7651ff;--soft:#e4dcff;--line:#ded5f4;--shadow:0 14px 34px rgba(82,55,160,.14);--radius:30px}
+    button,input{font:inherit}.app{max-width:430px;min-height:100vh;margin:auto;padding:calc(18px + env(safe-area-inset-top)) 18px calc(92px + env(safe-area-inset-bottom));position:relative;overflow:hidden}
+    .glow{position:absolute;width:230px;height:230px;border-radius:50%;background:var(--soft);filter:blur(20px);opacity:.7;right:-110px;top:-90px;pointer-events:none}.top{display:flex;justify-content:space-between;align-items:center;position:relative}.eyebrow{font-size:12px;color:var(--muted);letter-spacing:.08em}.title{font-size:31px;line-height:1.08;margin:5px 0 0;font-weight:800;letter-spacing:-.04em}.avatar{width:44px;height:44px;border-radius:16px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:20px;box-shadow:var(--shadow)}
+    .hero{margin:24px 0 20px;background:var(--ink);color:var(--bg);border-radius:var(--radius);padding:23px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:120px;height:120px;border:28px solid var(--accent);border-radius:50%;right:-42px;top:-52px;opacity:.8}.hero small{opacity:.7}.hero h2{font-size:26px;margin:8px 0 17px;max-width:250px;line-height:1.18}.dice{border:0;background:var(--accent);color:white;border-radius:15px;padding:11px 16px;font-weight:700;cursor:pointer;position:relative;z-index:1}.pick{margin-top:12px;font-weight:700;color:var(--accent);min-height:20px}
+    .search{display:flex;align-items:center;gap:10px;padding:13px 15px;border:1px solid var(--line);background:var(--card);border-radius:16px}.search input{border:0;outline:0;width:100%;background:transparent;color:var(--ink);font-size:15px}.chips{display:flex;gap:9px;overflow:auto;padding:14px 0 7px;scrollbar-width:none}.chip{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 14px;border-radius:999px;cursor:pointer}.chip.active{color:white;border-color:var(--accent);background:var(--accent)}
+    .sectionHead{display:flex;justify-content:space-between;align-items:end;margin:19px 1px 12px}.sectionHead h3{font-size:20px;margin:0}.count{font-size:12px;color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:10px;box-shadow:var(--shadow);transition:.2s;cursor:pointer}.card:active{transform:scale(.97)}.food{height:112px;border-radius:calc(var(--radius) - 8px);display:grid;place-items:center;font-size:54px;position:relative;background:var(--soft)}.heart{position:absolute;right:8px;top:8px;border:0;width:30px;height:30px;border-radius:50%;background:var(--card);color:var(--muted);cursor:pointer}.heart.on{color:#ef476f}.card h4{font-size:16px;margin:11px 4px 5px}.meta{margin:0 4px 4px;color:var(--muted);font-size:12px}.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:45px 0}
+    .tabbar{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100% - 28px),402px);background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:23px;padding:9px;display:flex;justify-content:space-around;z-index:5}.tab{border:0;background:transparent;color:var(--muted);padding:8px 13px;border-radius:15px;font-size:12px}.tab.active{background:var(--soft);color:var(--accent);font-weight:700}
+    .sheet{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);z-index:20;display:none;align-items:flex-end;justify-content:center}.sheet.open{display:flex}.panel{width:min(100%,430px);background:var(--bg);padding:20px 18px calc(24px + env(safe-area-inset-bottom));border-radius:30px 30px 0 0}.grab{width:42px;height:5px;background:var(--line);border-radius:3px;margin:0 auto 20px}.styles{display:grid;grid-template-columns:1fr 1fr;gap:12px}.style{border:2px solid transparent;border-radius:20px;padding:15px;text-align:left;cursor:pointer}.style.active{border-color:var(--accent)}.swatches{display:flex;gap:5px;margin-bottom:10px}.swatches i{width:18px;height:18px;border-radius:50%}.style b{display:block}.style small{color:#666}.warm{background:#fff9ef}.fresh{background:#f3fff7}.dark{background:#222;color:#fff}.pop{background:#f8f5ff}.close{margin-top:16px;width:100%;border:0;border-radius:16px;background:var(--ink);color:var(--bg);padding:14px;font-weight:700}
+  </style>
+</head>
+<body data-theme="warm">
+<main class="app"><div class="glow"></div>
+  <header class="top"><div><div class="eyebrow">MY KITCHEN · 12 道拿手菜</div><h1 class="title">今天，做点<br>好吃的。</h1></div><button class="avatar" id="styleBtn" aria-label="选择风格">✦</button></header>
+  <section class="hero"><small>今晚灵感</small><h2>还没想好？<br>让菜单替你决定。</h2><button class="dice" id="dice">摇一摇 🎲</button><div class="pick" id="pick"></div></section>
+  <label class="search">⌕ <input id="search" placeholder="搜索菜名或食材" /></label>
+  <div class="chips" id="chips"></div>
+  <div class="sectionHead"><h3 id="listTitle">我的菜谱</h3><span class="count" id="count"></span></div>
+  <section class="grid" id="grid"></section>
+</main>
+<nav class="tabbar"><button class="tab active" data-view="all">⌂<br>菜单</button><button class="tab" data-view="fav">♥<br>收藏</button><button class="tab" id="tabStyle">✦<br>风格</button></nav>
+<div class="sheet" id="sheet"><div class="panel"><div class="grab"></div><h3>选择 App 风格</h3><p class="count">随时切换，内容不会改变</p><div class="styles">
+  <button class="style warm active" data-theme="warm"><span class="swatches"><i style="background:#e15d3b"></i><i style="background:#28251f"></i></span><b>暖炉食堂</b><small>温暖、家常、有烟火气</small></button>
+  <button class="style fresh" data-theme="fresh"><span class="swatches"><i style="background:#178d62"></i><i style="background:#d8eee3"></i></span><b>清新菜园</b><small>自然、轻盈、健康</small></button>
+  <button class="style dark" data-theme="dark"><span class="swatches"><i style="background:#ffb649"></i><i style="background:#101112"></i></span><b>深夜厨房</b><small>克制、质感、电影感</small></button>
+  <button class="style pop" data-theme="pop"><span class="swatches"><i style="background:#7651ff"></i><i style="background:#e4dcff"></i></span><b>元气料理</b><small>年轻、活泼、有趣</small></button>
+</div><button class="close" id="close">选好了</button></div></div>
+<script>
+const dishes=[
+ {n:'番茄炒蛋',e:'🍅',c:'快手菜',t:'15 分钟',k:'番茄 鸡蛋'}, {n:'可乐鸡翅',e:'🍗',c:'肉菜',t:'35 分钟',k:'鸡翅 可乐'},
+ {n:'麻婆豆腐',e:'🌶️',c:'下饭菜',t:'25 分钟',k:'豆腐 肉末'}, {n:'清蒸鲈鱼',e:'🐟',c:'健康菜',t:'30 分钟',k:'鲈鱼 姜葱'},
+ {n:'土豆炖牛腩',e:'🥘',c:'肉菜',t:'90 分钟',k:'牛肉 土豆'}, {n:'蒜蓉西兰花',e:'🥦',c:'健康菜',t:'12 分钟',k:'西兰花 蒜'},
+ {n:'葱油拌面',e:'🍜',c:'主食',t:'20 分钟',k:'面 葱'}, {n:'红烧茄子',e:'🍆',c:'下饭菜',t:'25 分钟',k:'茄子'},
+ {n:'扬州炒饭',e:'🍚',c:'主食',t:'18 分钟',k:'米饭 鸡蛋 虾仁'}, {n:'冬瓜排骨汤',e:'🍲',c:'汤羹',t:'70 分钟',k:'排骨 冬瓜'},
+ {n:'蒜香虾仁',e:'🍤',c:'快手菜',t:'16 分钟',k:'虾仁 蒜'}, {n:'菌菇豆腐汤',e:'🥣',c:'汤羹',t:'25 分钟',k:'菌菇 豆腐'}
+];
+let category='全部',view='all';let fav=new Set(JSON.parse(localStorage.getItem('menuFav')||'[]'));
+const cats=['全部',...new Set(dishes.map(x=>x.c))];
+function renderChips(){chips.innerHTML=cats.map(c=>`<button class="chip ${c===category?'active':''}" data-cat="${c}">${c}</button>`).join('')}
+function filtered(){let q=search.value.trim();return dishes.filter(d=>(category==='全部'||d.c===category)&&(!q||(d.n+d.k).includes(q))&&(view!=='fav'||fav.has(d.n)))}
+function render(){let data=filtered();count.textContent=data.length+' 道菜';grid.innerHTML=data.length?data.map(d=>`<article class="card"><div class="food">${d.e}<button class="heart ${fav.has(d.n)?'on':''}" data-fav="${d.n}" aria-label="收藏">${fav.has(d.n)?'♥':'♡'}</button></div><h4>${d.n}</h4><p class="meta">${d.c} · ${d.t}</p></article>`).join(''):'<div class="empty">这里还没有菜 🍽️</div>'}
+chips.onclick=e=>{if(e.target.dataset.cat){category=e.target.dataset.cat;renderChips();render()}};search.oninput=render;
+grid.onclick=e=>{let n=e.target.dataset.fav;if(n){fav.has(n)?fav.delete(n):fav.add(n);localStorage.setItem('menuFav',JSON.stringify([...fav]));render()}};
+dice.onclick=()=>{let d=dishes[Math.floor(Math.random()*dishes.length)];pick.textContent='就做：'+d.n+' '+d.e};
+document.querySelectorAll('.tab[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');listTitle.textContent=view==='fav'?'我的收藏':'我的菜谱';render()});
+function openSheet(){sheet.classList.add('open')}styleBtn.onclick=openSheet;tabStyle.onclick=openSheet;close.onclick=()=>sheet.classList.remove('open');sheet.onclick=e=>{if(e.target===sheet)sheet.classList.remove('open')};
+document.querySelectorAll('.style').forEach(b=>b.onclick=()=>{document.body.dataset.theme=b.dataset.theme;localStorage.setItem('menuTheme',b.dataset.theme);document.querySelectorAll('.style').forEach(x=>x.classList.toggle('active',x===b))});
+let saved=localStorage.getItem('menuTheme');if(saved){document.body.dataset.theme=saved;document.querySelectorAll('.style').forEach(x=>x.classList.toggle('active',x.dataset.theme===saved))}renderChips();render();
+</script>
+</body></html>

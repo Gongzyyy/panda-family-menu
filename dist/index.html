@@ -72,7 +72,7 @@ const dishes=[
  {n:'泡菜汤',e:'🍲',c:'炖菜汤羹',t:'35 分钟',r:['泡菜','五花肉','豆腐']},
  {n:'麻辣烫',e:'🍢',c:'炖菜汤羹',t:'30 分钟',r:['火锅底料','蔬菜','丸子']},
  {n:'猪肉白菜炖粉条',e:'🍲',c:'炖菜汤羹',t:'60 分钟',r:['猪肉','白菜','粉条']},
- {n:'烤羊排',e:'🍖',c:'烧烤',t:'80 分钟',r:['羊排','洋葱','孜然']}
+ {n:'烤羊排',e:'🍖',c:'肉类',t:'80 分钟',r:['羊排','洋葱','孜然']}
 ];
 let category='全部',view='all';let fav=new Set(JSON.parse(localStorage.getItem('menuFav')||'[]'));let pantryItems=new Set(JSON.parse(localStorage.getItem('menuPantry')||'[]'));const photoPositions=['0% 0%','100% 0%','0% 100%','100% 100%'];dishes.forEach((d,i)=>{d.k=d.r.join(' ');d.sheet=Math.floor(i/4)+1;d.pos=photoPositions[i%4]});
 const cats=['全部',...new Set(dishes.map(x=>x.c))];

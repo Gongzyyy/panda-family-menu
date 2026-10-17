@@ -23,7 +23,7 @@
 </head>
 <body data-theme="warm">
 <main class="app"><div class="glow"></div>
-  <header class="top"><div><div class="eyebrow">MY KITCHEN · 12 道拿手菜</div><h1 class="title">今天，做点<br>好吃的。</h1></div><button class="avatar" id="styleBtn" aria-label="选择风格">✦</button></header>
+  <header class="top"><div><div class="eyebrow">MY KITCHEN · 28 道拿手菜</div><h1 class="title">今天，做点<br>好吃的。</h1></div><button class="avatar" id="styleBtn" aria-label="选择风格">✦</button></header>
   <section class="hero"><small>今晚灵感</small><h2>还没想好？<br>让菜单替你决定。</h2><button class="dice" id="dice">摇一摇 🎲</button><div class="pick" id="pick"></div></section>
   <label class="search">⌕ <input id="search" placeholder="搜索菜名或食材" /></label>
   <div class="chips" id="chips"></div>
@@ -40,16 +40,38 @@
 </div><button class="close" id="close">选好了</button></div></div>
 <script>
 const dishes=[
- {n:'番茄炒蛋',e:'🍅',c:'快手菜',t:'15 分钟',r:['番茄','鸡蛋']}, {n:'可乐鸡翅',e:'🍗',c:'肉菜',t:'35 分钟',r:['鸡翅','可乐','姜']},
- {n:'麻婆豆腐',e:'🌶️',c:'下饭菜',t:'25 分钟',r:['豆腐','肉末','辣椒']}, {n:'清蒸鲈鱼',e:'🐟',c:'健康菜',t:'30 分钟',r:['鲈鱼','姜','葱']},
- {n:'土豆炖牛腩',e:'🥘',c:'肉菜',t:'90 分钟',r:['牛肉','土豆','番茄']}, {n:'蒜蓉西兰花',e:'🥦',c:'健康菜',t:'12 分钟',r:['西兰花','蒜']},
- {n:'葱油拌面',e:'🍜',c:'主食',t:'20 分钟',r:['面条','葱']}, {n:'红烧茄子',e:'🍆',c:'下饭菜',t:'25 分钟',r:['茄子','蒜']},
- {n:'扬州炒饭',e:'🍚',c:'主食',t:'18 分钟',r:['米饭','鸡蛋','虾仁']}, {n:'冬瓜排骨汤',e:'🍲',c:'汤羹',t:'70 分钟',r:['排骨','冬瓜','姜']},
- {n:'蒜香虾仁',e:'🍤',c:'快手菜',t:'16 分钟',r:['虾仁','蒜']}, {n:'菌菇豆腐汤',e:'🥣',c:'汤羹',t:'25 分钟',r:['菌菇','豆腐','葱']}
+ {n:'番茄炒蛋',e:'🍅',c:'家常热菜',t:'15 分钟',r:['番茄','鸡蛋']},
+ {n:'蒜蓉西兰花',e:'🥦',c:'家常热菜',t:'12 分钟',r:['西兰花','蒜']},
+ {n:'高汤娃娃菜',e:'🥬',c:'家常热菜',t:'20 分钟',r:['娃娃菜','高汤','蒜']},
+ {n:'粉蒸排骨',e:'🍖',c:'家常热菜',t:'60 分钟',r:['排骨','蒸肉米粉','土豆']},
+ {n:'蒜蓉排骨',e:'🧄',c:'家常热菜',t:'50 分钟',r:['排骨','蒜']},
+ {n:'擂辣椒茄子',e:'🌶️',c:'家常热菜',t:'25 分钟',r:['茄子','辣椒','蒜']},
+ {n:'茄子土豆酱',e:'🍆',c:'家常热菜',t:'35 分钟',r:['茄子','土豆','大酱']},
+ {n:'贴骨肉荷包蛋',e:'🍳',c:'家常热菜',t:'35 分钟',r:['贴骨肉','鸡蛋','辣椒']},
+ {n:'红烧鱼',e:'🐟',c:'家常热菜',t:'40 分钟',r:['鱼','葱','姜']},
+ {n:'香煎三文鱼',e:'🐟',c:'家常热菜',t:'20 分钟',r:['三文鱼','柠檬']},
+ {n:'酱烧鱼',e:'🐠',c:'家常热菜',t:'40 分钟',r:['鱼','大酱','葱','姜']},
+ {n:'西红柿鸡蛋打卤面',e:'🍜',c:'面食',t:'25 分钟',r:['面条','番茄','鸡蛋']},
+ {n:'茄子肉末打卤面',e:'🍜',c:'面食',t:'35 分钟',r:['面条','茄子','肉末']},
+ {n:'老北京打卤面',e:'🥢',c:'面食',t:'50 分钟',r:['面条','五花肉','木耳','黄花菜','鸡蛋']},
+ {n:'老北京炸酱面',e:'🥢',c:'面食',t:'45 分钟',r:['面条','五花肉','黄酱','黄瓜']},
+ {n:'碗杂面',e:'🍜',c:'面食',t:'40 分钟',r:['面条','豌豆','肉末','辣椒']},
+ {n:'肉夹馍',e:'🥙',c:'面食',t:'90 分钟',r:['面饼','五花肉','青椒']},
+ {n:'豆角焖面',e:'🍝',c:'面食',t:'40 分钟',r:['面条','豆角','五花肉']},
+ {n:'牛肉汤饭',e:'🍚',c:'米饭主食',t:'60 分钟',r:['牛肉','米饭','香菜']},
+ {n:'煲仔饭',e:'🍲',c:'米饭主食',t:'45 分钟',r:['米饭','腊肠','青菜','鸡蛋']},
+ {n:'韩式拌饭',e:'🍚',c:'米饭主食',t:'35 分钟',r:['米饭','鸡蛋','牛肉','蔬菜']},
+ {n:'东北老式拌饭',e:'🥚',c:'米饭主食',t:'20 分钟',r:['米饭','鸡蛋','生菜','辣椒酱']},
+ {n:'酸菜五花肉',e:'🥘',c:'炖菜汤羹',t:'60 分钟',r:['酸菜','五花肉','粉条']},
+ {n:'小猪盖被',e:'🥘',c:'炖菜汤羹',t:'70 分钟',r:['排骨','土豆','面粉']},
+ {n:'泡菜汤',e:'🍲',c:'炖菜汤羹',t:'35 分钟',r:['泡菜','五花肉','豆腐']},
+ {n:'麻辣烫',e:'🍢',c:'炖菜汤羹',t:'30 分钟',r:['火锅底料','蔬菜','丸子']},
+ {n:'猪肉白菜炖粉条',e:'🍲',c:'炖菜汤羹',t:'60 分钟',r:['猪肉','白菜','粉条']},
+ {n:'烤羊排',e:'🍖',c:'烧烤',t:'80 分钟',r:['羊排','洋葱','孜然']}
 ];
 let category='全部',view='all';let fav=new Set(JSON.parse(localStorage.getItem('menuFav')||'[]'));let pantryItems=new Set(JSON.parse(localStorage.getItem('menuPantry')||'[]'));dishes.forEach(d=>d.k=d.r.join(' '));
 const cats=['全部',...new Set(dishes.map(x=>x.c))];
-const common=['鸡蛋','番茄','土豆','豆腐','葱','姜','蒜','肉末','鸡翅','虾仁','米饭','面条','菌菇','茄子','西兰花','排骨'];
+const common=['鸡蛋','番茄','茄子','土豆','豆腐','葱','姜','蒜','肉末','五花肉','猪肉','牛肉','排骨','羊排','鱼','三文鱼','米饭','面条','粉条','豆角','白菜','西兰花','娃娃菜','辣椒'];
 function renderChips(){chips.innerHTML=cats.map(c=>`<button class="chip ${c===category?'active':''}" data-cat="${c}">${c}</button>`).join('')}
 function filtered(){let q=search.value.trim();return dishes.filter(d=>(category==='全部'||d.c===category)&&(!q||(d.n+d.k).includes(q))&&(view!=='fav'||fav.has(d.n)))}
 function render(){let data=filtered();count.textContent=data.length+' 道菜';grid.innerHTML=data.length?data.map(d=>`<article class="card"><div class="food">${d.e}<button class="heart ${fav.has(d.n)?'on':''}" data-fav="${d.n}" aria-label="收藏">${fav.has(d.n)?'♥':'♡'}</button></div><h4>${d.n}</h4><p class="meta">${d.c} · ${d.t}</p></article>`).join(''):'<div class="empty">这里还没有菜 🍽️</div>'}

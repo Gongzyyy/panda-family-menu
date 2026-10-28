@@ -41,7 +41,7 @@
 <body data-theme="warm">
 <main class="site"><div class="glow"></div>
   <header class="top">
-    <div class="brand"><div><div class="eyebrow">PRIVATE TABLE · 四十八味</div><h1 class="title">今日菜单</h1></div><div class="eyebrow">时令 · 风味 · 家宴</div></div>
+    <div class="brand"><div><div class="eyebrow">PRIVATE TABLE · 五十三味</div><h1 class="title">今日菜单</h1></div><div class="eyebrow">时令 · 风味 · 家宴</div></div>
     <div class="topActions"><button class="topBtn" id="favFilter">♡ 只看收藏</button><button class="avatar" id="styleBtn" aria-label="选择网页风格">✦</button></div>
   </header>
   <section class="dashboard">
@@ -114,11 +114,16 @@ const dishes=[
  {n:'酸豆角肉末',e:'🌶️',cs:['猪肉','蔬菜'],t:'20 分钟',r:['酸豆角','肉末','辣椒'],s:12,p:'0% 100%'},
  {n:'肉末茄子',e:'🍆',cs:['猪肉','蔬菜'],t:'30 分钟',r:['茄子','肉末','蒜','辣椒'],s:12,p:'100% 100%'},
  {n:'孜然鸡胗',e:'🍗',cs:['鸡肉'],t:'25 分钟',r:['鸡胗','孜然','辣椒','葱'],s:13,p:'0% 0%'},
- {n:'卤牛肉',e:'🥩',cs:['牛肉'],t:'90 分钟',r:['牛腱子','酱油','八角','香叶'],s:13,p:'100% 0%'}
+ {n:'卤牛肉',e:'🥩',cs:['牛肉'],t:'90 分钟',r:['牛腱子','酱油','八角','香叶'],s:13,p:'100% 0%'},
+ {n:'土豆炖牛肉',e:'🥘',cs:['牛肉','蔬菜'],t:'75 分钟',r:['牛肉','土豆','胡萝卜','葱','姜'],s:14,p:'0% 0%'},
+ {n:'西红柿炖牛腩',e:'🍅',cs:['牛肉','蔬菜','汤类'],t:'90 分钟',r:['牛腩','番茄','土豆','葱','姜'],s:14,p:'100% 0%'},
+ {n:'淮南牛肉汤',e:'🍲',cs:['牛肉','汤类'],t:'90 分钟',r:['牛肉','牛骨汤','粉丝','千张','香菜'],s:14,p:'0% 100%'},
+ {n:'河南烩菜',e:'🥘',cs:['猪肉','蔬菜','豆制品','汤类'],t:'60 分钟',r:['五花肉','白菜','豆腐','粉条','丸子'],s:14,p:'100% 100%'},
+ {n:'健腐肉',e:'🥩',cs:['猪肉','豆制品'],t:'70 分钟',r:['五花肉','健腐','红腐乳','白糖','酱油','葱','姜'],s:15,p:'0% 0%'}
 ];
 let category='全部',view='all';let fav=new Set(JSON.parse(localStorage.getItem('menuFav')||'[]'));let pantryItems=new Set(JSON.parse(localStorage.getItem('menuPantry')||'[]'));let selected=new Set(JSON.parse(localStorage.getItem('menuSelection')||'[]').filter(n=>dishes.some(d=>d.n===n)));const photoPositions=['0% 0%','100% 0%','0% 100%','100% 100%'];dishes.forEach((d,i)=>{d.k=d.r.join(' ');d.sheet=d.s||Math.floor(i/4)+1;d.pos=d.p||photoPositions[i%4]});
 const cats=['全部','鸡肉','猪肉','牛肉','羊肉','鱼类','蛋类','蔬菜','豆制品','面食','米饭主食','汤类'];
-const common=['鸡蛋','番茄','茄子','土豆','豆腐','干豆腐','葱','姜','蒜','肉末','五花肉','猪肉','鸡肉','鸡腿','鸡胗','牛肉','牛腱子','排骨','羊排','鱼','三文鱼','米饭','面条','粉条','豆角','酸豆角','白菜','西兰花','娃娃菜','水芹','辣椒'];
+const common=['鸡蛋','番茄','茄子','土豆','胡萝卜','豆腐','干豆腐','千张','葱','姜','蒜','肉末','五花肉','猪肉','鸡肉','鸡腿','鸡胗','牛肉','牛腩','牛腱子','牛骨汤','排骨','羊排','鱼','三文鱼','米饭','面条','粉丝','粉条','豆角','酸豆角','白菜','西兰花','娃娃菜','水芹','辣椒','红腐乳'];
 function renderChips(){chips.innerHTML=cats.map(c=>`<button class="chip ${c===category?'active':''}" data-cat="${c}">${c}</button>`).join('')}
 function filtered(){let q=search.value.trim();return dishes.filter(d=>(category==='全部'||d.cs.includes(category))&&(!q||(d.n+d.k+d.cs.join(' ')).includes(q))&&(view!=='fav'||fav.has(d.n)))}
 function photoStyle(d){return `background-image:url('assets/food-sheet-${d.sheet}.jpg');--photo-pos:${d.pos}`}
